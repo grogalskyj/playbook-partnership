@@ -95,10 +95,10 @@ export type DataMetaNodeData<T> =
  */
 export type BaseProcessMetaNode<T = InternalProcessMetaNode> = IdentifiableMetaNode<T> & {
   kind: 'process'
-  inputs: {[K in keyof ExtractKey<T, 'inputs'>]: ExtractKey<T, 'inputs'>[K]}
+  inputs: { [K in keyof ExtractKey<T, 'inputs'>]: ExtractKey<T, 'inputs'>[K] }
   output: ExtractKey<T, 'output'>
   story?(props: {
-    inputs: {[K in keyof ExtractKey<T, 'inputs'>]: DataMetaNodeData<ExtractKey<T, 'inputs'>[K]>}
+    inputs: { [K in keyof ExtractKey<T, 'inputs'>]: DataMetaNodeData<ExtractKey<T, 'inputs'>[K]> }
     output?: DataMetaNodeData<ExtractKey<T, 'output'>>,
   }): string
 }
@@ -108,7 +108,7 @@ export type BaseProcessMetaNode<T = InternalProcessMetaNode> = IdentifiableMetaN
  */
 export type ResolveMetaNode<T = InternalProcessMetaNode> = BaseProcessMetaNode<T> & {
   resolve(props: {
-    inputs: {[K in keyof ExtractKey<T, 'inputs'>]: DataMetaNodeData<ExtractKey<T, 'inputs'>[K]>}
+    inputs: { [K in keyof ExtractKey<T, 'inputs'>]: DataMetaNodeData<ExtractKey<T, 'inputs'>[K]> }
   }): Promise<DataMetaNodeData<ExtractKey<T, 'output'>>>
 }
 
@@ -118,7 +118,7 @@ export type ResolveMetaNode<T = InternalProcessMetaNode> = BaseProcessMetaNode<T
  */
 export type PromptMetaNode<T = InternalProcessMetaNode> = BaseProcessMetaNode<T> & {
   prompt(props: {
-    inputs: {[K in keyof ExtractKey<T, 'inputs'>]: DataMetaNodeData<ExtractKey<T, 'inputs'>[K]>}
+    inputs: { [K in keyof ExtractKey<T, 'inputs'>]: DataMetaNodeData<ExtractKey<T, 'inputs'>[K]> }
     output?: DataMetaNodeData<ExtractKey<T, 'output'>>,
     submit: (output: DataMetaNodeData<ExtractKey<T, 'output'>>) => void
   }): React.ReactElement
@@ -165,7 +165,7 @@ export function MetaNode<ID extends InternalIdentifiableMetaNode['spec']>(spec: 
        * The input(s) to this ProcessMetaNode, of the form
        *  { argumentName: SomeAlreadyDefinedDataMetaNode, ... }
        */
-      inputs: <INPUTS>(inputs: {[K in keyof INPUTS]: INPUTS[K] extends MaybeArray<DataMetaNode<infer _>> ? INPUTS[K] : never} = {} as {[K in keyof INPUTS]: INPUTS[K] extends MaybeArray<DataMetaNode<infer _>> ? INPUTS[K] : never}) =>
+      inputs: <INPUTS>(inputs: { [K in keyof INPUTS]: INPUTS[K] extends MaybeArray<DataMetaNode<infer _>> ? INPUTS[K] : never } = {} as { [K in keyof INPUTS]: INPUTS[K] extends MaybeArray<DataMetaNode<infer _>> ? INPUTS[K] : never }) =>
       ({
         /**
          * The output of this ProcessMetaNode, an already defined DataMetaNode
